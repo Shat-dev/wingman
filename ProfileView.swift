@@ -38,6 +38,7 @@ struct ProfileView: View {
             Spacer()
         }
         .padding()
+        .background(Color(hex: "fafafa"))
         .navigationTitle("Profile")
     }
 }

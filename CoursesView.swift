@@ -34,6 +34,7 @@ struct CoursesView: View {
             Spacer()
         }
         .padding()
+        .background(Color(hex: "fafafa"))
         .navigationTitle("Courses")
     }
 }

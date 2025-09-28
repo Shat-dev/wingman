@@ -8,7 +8,30 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @State private var greetingText = ""
+    
+    // Sample course data
+    let sampleCourses = [
+        Course(
+            imageName: "Testdata1",
+            title: "Swift Programming",
+            progressText: "25% Complete",
+            buttonLabel: "Continue"
+        ),
+        Course(
+            imageName: "Testdata2",
+            title: "iOS Development",
+            progressText: "60% Complete",
+            buttonLabel: "Continue"
+        ),
+        Course(
+            imageName: "Testdata3",
+            title: "SwiftUI Basics",
+            progressText: "0% Complete",
+            buttonLabel: "Start"
+        )
+    ]
     
     var body: some View {
         VStack {
@@ -18,13 +41,30 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
 
-            Spacer() // pushes everything else down
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 120)
+                    .padding(.horizontal)
+                
+                Text("Streaks Section")
+                    .font(.headline)
+                    .foregroundColor(.black)
+            }
+            
+            // Course carousel
+            CourseCarousel(courses: sampleCourses)
+            
+            Spacer()
         }
+        .background(Color(hex: "fafafa"))
         .onAppear {
             updateGreeting()
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            updateGreeting()
+        .onChange(of: scenePhase) {
+            if scenePhase == .active {
+                updateGreeting()
+            }
         }
     }
     
@@ -41,6 +81,7 @@ struct HomeView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()
