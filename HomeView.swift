@@ -8,30 +8,40 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var greetingText = ""
+    
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                Image(systemName: "house.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.blue)
-                
-                Text("Welcome Home")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                Text("This is your home dashboard")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("Home")
+        VStack {
+            Text(greetingText) // greeting sits at top
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+
+            Spacer() // pushes everything else down
+        }
+        .onAppear {
+            updateGreeting()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            updateGreeting()
+        }
+    }
+    
+    private func updateGreeting() {
+        let hour = Calendar.current.component(.hour, from: Date())
+        
+        switch hour {
+        case 5..<12:
+            greetingText = "Good Morning"
+        case 12..<17:
+            greetingText = "Good Afternoon"
+        default:
+            greetingText = "Good Evening"
         }
     }
 }
 
 #Preview {
-    HomeView()
+    ContentView()
 } 

@@ -9,38 +9,36 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                // Profile Image
-                Image(systemName: "person.circle.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.purple)
+        VStack(spacing: 20) {
+            // Profile Image
+            Image(systemName: "person.circle.fill")
+                .font(.system(size: 80))
+                .foregroundColor(.purple)
+            
+            // User Info
+            VStack(spacing: 8) {
+                Text("Arthur Wang")
+                    .font(.title2)
+                    .fontWeight(.semibold)
                 
-                // User Info
-                VStack(spacing: 8) {
-                    Text("Arthur Wang")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    
-                    Text("iOS Developer")
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                }
-                
-                // Profile Options
-                VStack(spacing: 16) {
-                    ProfileOption(icon: "gear", title: "Settings")
-                    ProfileOption(icon: "bell", title: "Notifications")
-                    ProfileOption(icon: "questionmark.circle", title: "Help & Support")
-                    ProfileOption(icon: "rectangle.portrait.and.arrow.right", title: "Sign Out")
-                }
-                .padding(.top, 30)
-                
-                Spacer()
+                Text("iOS Developer")
+                    .font(.body)
+                    .foregroundColor(.secondary)
             }
-            .padding()
-            .navigationTitle("Profile")
+            
+            // Profile Options
+            VStack(spacing: 16) {
+                ProfileOption(icon: "gear", title: "Settings")
+                ProfileOption(icon: "bell", title: "Notifications")
+                ProfileOption(icon: "questionmark.circle", title: "Help & Support")
+                ProfileOption(icon: "rectangle.portrait.and.arrow.right", title: "Sign Out")
+            }
+            .padding(.top, 30)
+            
+            Spacer()
         }
+        .padding()
+        .navigationTitle("Profile")
     }
 }
 
@@ -72,5 +70,5 @@ struct ProfileOption: View {
 }
 
 #Preview {
-    ProfileView()
+    ContentView()
 } 
